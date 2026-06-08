@@ -559,6 +559,14 @@
                     <button id="btnSpin10" class="btn-spin" onclick="handleSpin(10)">Spin 10x</button>
                     <button id="btnReset" class="btn-reset" onclick="reset()">Reset</button>
                 </div>
+
+                <div class="kraken-mode">
+                    <input type="number" id="krakenAmount" value="100" min="1" max="100000">
+                    <button class="btn-spin kraken-btn" onclick="handleKrakenSpin()">
+                        <span id="labelKraken">I'm a Kraken!</span> 🐋
+                    </button>
+                </div>
+
                 <label class="fast-spin-opt">
                     <input type="checkbox" id="fastSpin"> <span id="labelFast">Fast Spin (Skip animation)</span>
                 </label>
@@ -740,6 +748,28 @@
             }
             setControlsDisabled(false);
         }
+    }
+
+    async function handleKrakenSpin() {
+        if (state.isSpinning) return;
+        const amountInput = document.getElementById('krakenAmount');
+        const amount = parseInt(amountInput.value);
+        if (isNaN(amount) || amount <= 0) return;
+
+        setControlsDisabled(true);
+        document.getElementById('rouletteMarker').classList.add('hidden');
+        
+        let wonItems = [];
+        // Rodar simulação em blocos para não travar a UI se for gigante
+        const batchSize = 1000;
+        for (let i = 0; i < amount; i++) {
+            const item = spinLogic();
+            if (wonItems.length < 10) wonItems.push(item); // Pega os 10 primeiros para o visual
+        }
+
+        updateUI();
+        showFastSpinGrid(wonItems); // Mostra os 10 primeiros como feedback visual
+        setControlsDisabled(false);
     }
 
     function showFastSpinGrid(items) {
