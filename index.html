@@ -32,7 +32,7 @@
         }
 
         .container {
-            max-width: 1400px; /* Alargado para caber lado a lado */
+            max-width: 1400px;
             width: 100%;
             padding: 0 20px;
         }
@@ -46,7 +46,7 @@
 
         .left-panel {
             flex: 1;
-            max-width: 700px; /* Limita a largura da roleta */
+            max-width: 700px;
             display: flex;
             flex-direction: column;
             width: 100%;
@@ -74,6 +74,118 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.8em;
+            z-index: 100;
+        }
+
+        .help-btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--rare);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            z-index: 100;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--rare);
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 204, 0, 0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .help-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85em;
+        }
+
+        .help-table th, .help-table td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+
+        .help-table th {
+            color: var(--rare);
+            text-transform: uppercase;
+        }
+
+        .responsible-note {
+            background: rgba(255, 0, 122, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .kraken-mode {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .kraken-mode input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #444;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100px;
+            font-size: 1.1em;
+        }
+
+        .kraken-btn {
+            background: linear-gradient(135deg, #ffcc00, #b8860b) !important;
+            color: #111 !important;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .roulette-marker.hidden {
+            display: none !important;
         }
 
         h1 {
@@ -137,7 +249,6 @@
             position: relative;
             width: 100%;
             max-width: 690px;
-            /* Proporção original: 690x523 */
             aspect-ratio: 690 / 523;
             background-image: url('roleta.png');
             background-size: 100% 100%;
@@ -149,9 +260,9 @@
 
         .roulette-viewport {
             position: absolute;
-            top: 41.1%; /* 215/523 */
-            width: 84%; /* 580/690 */
-            height: 22.9%; /* 120/523 */
+            top: 41.1%;
+            width: 84%;
+            height: 22.9%;
             overflow: hidden;
             border: 2px solid rgba(255, 255, 255, 0.1);
             background: rgba(0, 0, 0, 0.3);
@@ -162,10 +273,10 @@
         }
 
         .roulette-viewport.show-grid {
-            top: 3%; /* Sobe para dar espaço vertical no desktop */
-            width: 95%; /* Expande horizontalmente quase até as bordas */
+            top: 10%;
+            width: 95%;
             height: auto;
-            min-height: 80%; /* Força uma altura substancial para que os itens fiquem gigantes */
+            min-height: 80%;
             overflow: visible;
             background: rgba(15, 15, 27, 0.95);
             box-shadow: 0 10px 50px rgba(0,0,0,0.9);
@@ -184,7 +295,7 @@
         }
 
         .roulette-item {
-            min-width: 20.68%; /* 120/580 */
+            min-width: 20.68%;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -238,18 +349,14 @@
 
         .roulette-marker {
             position: absolute;
-            top: 39.1%; /* 205/523 */
+            top: 39.1%;
             left: 50%;
             transform: translateX(-50%);
             width: 4px;
-            height: 26.7%; /* 140/523 */
+            height: 26.7%;
             background-color: var(--accent);
             z-index: 10;
             box-shadow: 0 0 10px var(--accent);
-        }
-
-        .roulette-marker.hidden {
-            display: none !important;
         }
 
         /* Controls */
@@ -328,13 +435,12 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-height: 900px; /* Limite de altura solicitado */
-            overflow-y: auto; /* Scroll interno se passar dos 900px */
+            max-height: 900px;
+            overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: var(--accent) transparent;
         }
 
-        /* Custom scrollbar for better look */
         .inventory-section::-webkit-scrollbar {
             width: 6px;
         }
@@ -428,10 +534,20 @@
             display: block;
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 900px) {
             .main-layout {
                 flex-direction: column;
                 gap: 20px;
+                width: 100%;
+                align-items: center;
+            }
+            .left-panel, .right-panel {
+                width: 100%;
+                max-width: 100%;
+                flex: none;
+            }
+            .container {
+                padding: 0 10px;
             }
             h1 {
                 font-size: 1.5em;
@@ -471,18 +587,16 @@
 
             /* Adaptação do Grid Rápido para 3 linhas e 4 colunas no mobile */
             .roulette-viewport.show-grid {
-                /* Garante muito mais espaço vertical para o grid no celular */
+                top: 5%;
                 min-height: 250px; 
             }
             .roulette-track.fast-spin-grid {
                 grid-template-columns: repeat(4, 1fr);
-                /* Força as linhas a terem pelo menos 70px de altura para acomodar ícones grandes */
                 grid-auto-rows: minmax(70px, 1fr);
                 gap: 5px;
                 padding: 10px;
             }
             .roulette-track.fast-spin-grid .item-icon {
-                /* Aumenta o tamanho dos ícones no grid mobile para o máximo possível */
                 width: 90%;
                 height: 90%;
             }
@@ -521,9 +635,20 @@
 
 <div class="container">
     <header>
+        <button class="help-btn" onclick="toggleHelp()">HELP</button>
         <h1 id="mainTitle">ROX Simulator</h1>
         <button class="lang-toggle" onclick="toggleLang()">PT / EN</button>
     </header>
+
+    <!-- Modal de Ajuda -->
+    <div id="helpModal" class="modal-overlay hidden" onclick="closeHelp(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="toggleHelp()">×</button>
+            <div id="helpBody">
+                <!-- Conteúdo dinâmico via JS -->
+            </div>
+        </div>
+    </div>
 
     <div class="main-layout">
         <div class="left-panel">
@@ -594,7 +719,13 @@
             btnSpin10: "Spin 10x",
             btnReset: "Reset",
             labelFast: "Fast Spin (Skip animation)",
-            crystals: "Crystals"
+            crystals: "Crystals",
+            helpTitle: "Statistical Simulation (10 Million Spins)",
+            helpNote: "Important: This is a mathematical simulation. These numbers represent statistical averages and do not guarantee actual results. In a real scenario, items may appear more or less frequently. Gacha RNG is designed to be addictive and trigger dopamine; please play responsibly, treat it as entertainment, and only spend what you can afford. Good luck with your real spins!",
+            itemLabel: "Item",
+            probLabel: "Probability",
+            avgLabel: "Average (1 in X)",
+            labelKraken: "I'm a Kraken!"
         },
         pt: {
             mainTitle: "Simulador ROX",
@@ -606,9 +737,37 @@
             btnSpin10: "Girar 10x",
             btnReset: "Resetar",
             labelFast: "Giro Rápido (Pular animação)",
-            crystals: "Cristais"
+            crystals: "Cristais",
+            helpTitle: "Simulação Estatística (10 Milhões de Giros)",
+            helpNote: "Atenção: Isso é apenas uma simulação matemática. Estes números representam médias estatísticas e não são garantias de resultados reais. Na prática, itens podem sair com mais ou menos frequência. O sistema de Gacha RNG é feito para ser viciante e gerar dopamina; jogue com sabedoria, encare como diversão e gaste apenas o que você pode. Boa sorte nos seus giros reais!",
+            itemLabel: "Item",
+            probLabel: "Probabilidade",
+            avgLabel: "Média (1 em X)",
+            labelKraken: "Sou um Kraken!"
         }
     };
+
+    const statsData = [
+        { name: "Album de Carta Dourado", en: "Golden Card Album", prob: "0.0187%", avg: "5,356" },
+        { name: "Montaria", en: "Mount", prob: "0.0422%", avg: "2,391" },
+        { name: "Album carta Azul", en: "Blue Card Album", prob: "0.1850%", avg: "539" },
+        { name: "5 Packs de Encantamento", en: "5 Enchantment Packs", prob: "0.3955%", avg: "256" },
+        { name: "1 Packs de Refino", en: "1 Refine Pack", prob: "0.3955%", avg: "252" },
+        { name: "10 Packs de Sombria", en: "10 Shadow Packs", prob: "0.3955%", avg: "252" },
+        { name: "10 Moedas para Novos Giros", en: "10 Spin Coins", prob: "0.3955%", avg: "252" },
+        { name: "500 Balões", en: "500 Balloons", prob: "0.3955%", avg: "255" },
+        { name: "1 Pack de Upgrade", en: "1 Upgrade Pack", prob: "6.0916%", avg: "16" },
+        { name: "4 Pack de Planta", en: "4 Herb Packs", prob: "6.0916%", avg: "16" },
+        { name: "4 Pack de Minério", en: "4 Ore Packs", prob: "6.0916%", avg: "16" },
+        { name: "4 Moeda de Blessing", en: "4 Blessing Coins", prob: "6.0916%", avg: "16" },
+        { name: "2 Moedas para Novos Giros", en: "2 Spin Coins", prob: "6.0916%", avg: "16" },
+        { name: "50 Balões", en: "50 Balloons", prob: "6.0916%", avg: "16" },
+        { name: "1 Stamina", en: "1 Stamina", prob: "12.2450%", avg: "8" },
+        { name: "1 Moeda de Blessing", en: "1 Blessing Coin", prob: "12.2450%", avg: "8" },
+        { name: "10 Balões", en: "10 Balloons", prob: "12.2450%", avg: "8" },
+        { name: "10.000 Crystais", en: "10,000 Crystals", prob: "12.2450%", avg: "8" },
+        { name: "2 Carat Diamond", en: "2 Carat Diamond", prob: "12.2450%", avg: "8" }
+    ];
 
     const prizes = [
         { name: "Album de Carta Dourado", en: "Golden Card Album", prob: 0.000187, value: 3000000, isRare: true, img: "icon01.png" },
@@ -672,6 +831,47 @@
         document.getElementById('btnSpin10').innerText = t.btnSpin10;
         document.getElementById('btnReset').innerText = t.btnReset;
         document.getElementById('labelFast').innerText = t.labelFast;
+        document.getElementById('labelKraken').innerText = t.labelKraken;
+    }
+
+    function toggleHelp() {
+        const modal = document.getElementById('helpModal');
+        modal.classList.toggle('hidden');
+        if (!modal.classList.contains('hidden')) {
+            renderHelpContent();
+        }
+    }
+
+    function closeHelp(e) {
+        document.getElementById('helpModal').classList.add('hidden');
+    }
+
+    function renderHelpContent() {
+        const t = translations[currentLang];
+        let html = `<h2>${t.helpTitle}</h2>`;
+        html += `<table class="help-table">
+            <thead>
+                <tr>
+                    <th>${t.itemLabel}</th>
+                    <th>${t.probLabel}</th>
+                    <th>${t.avgLabel}</th>
+                </tr>
+            </thead>
+            <tbody>`;
+        
+        statsData.forEach(s => {
+            const name = currentLang === 'en' ? s.en : s.name;
+            html += `<tr>
+                <td>${name}</td>
+                <td>${s.prob}</td>
+                <td>${s.avg}</td>
+            </tr>`;
+        });
+
+        html += `</tbody></table>`;
+        html += `<div class="responsible-note">${t.helpNote}</div>`;
+        
+        document.getElementById('helpBody').innerHTML = html;
     }
 
     function createCard(p) {
@@ -760,15 +960,13 @@
         document.getElementById('rouletteMarker').classList.add('hidden');
         
         let wonItems = [];
-        // Rodar simulação em blocos para não travar a UI se for gigante
-        const batchSize = 1000;
         for (let i = 0; i < amount; i++) {
             const item = spinLogic();
-            if (wonItems.length < 10) wonItems.push(item); // Pega os 10 primeiros para o visual
+            if (wonItems.length < 10) wonItems.push(item);
         }
 
         updateUI();
-        showFastSpinGrid(wonItems); // Mostra os 10 primeiros como feedback visual
+        showFastSpinGrid(wonItems);
         setControlsDisabled(false);
     }
 
